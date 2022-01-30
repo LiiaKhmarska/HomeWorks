@@ -1,1 +1,3 @@
-Git and GitHub
+Postman
+Create requests 
+method: GET, POST
