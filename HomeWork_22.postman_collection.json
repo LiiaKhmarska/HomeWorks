@@ -1,0 +1,1294 @@
+{
+	"info": {
+		"_postman_id": "65424611-f2d8-46c3-b225-58c92d2cf3d8",
+		"name": "HomeWork_22",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check status and format",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"response should be okay to process\", function () {\r",
+							"    \r",
+							"    pm.response.to.not.have.jsonBody(\"error\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1111,\r\n  \"petId\": 22,\r\n  \"quantity\": 3,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check types of values\r",
+							"All values are correct\r",
+							"Check #1 */\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData).to.be.an(\"object\");\r",
+							"  pm.expect(jsonData.id).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.petId).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.quantity).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.shipDate).to.be.a(\"string\");\r",
+							"  pm.expect(jsonData.status).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.complete).to.be.true;\r",
+							" \r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 11,\r\n  \"petId\": 22,\r\n  \"quantity\": 23,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_2_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #2: \"comlete\" has incorrect type - string */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 2,\r\n  \"petId\": 22,\r\n  \"quantity\": 222,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": \"as%df\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_2_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #2: \"comlete\" has incorrect type - integer (number) */\r",
+							"\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 2,\r\n  \"petId\": 22,\r\n  \"quantity\": 222,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": 2222222\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_2_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #2: \"comlete\" has incorrect type - empty  \"\" */\r",
+							"\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 2,\r\n  \"petId\": 22,\r\n  \"quantity\": 222,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": \"\"\r\n}\r\n//Value of \"complete\" is converted from empty \"\" to boolean (false)",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_3_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #3: \"petId\" has incorrect type - string\r",
+							"            \"quantity\" has incorrect type - string\r",
+							"            \"shipDate\" has incorrect type - float (number)\r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 3,\r\n  \"petId\": \"aaa\",\r\n  \"quantity\": \"3\",\r\n  \"shipDate\": 33.33,\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_3_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #3: \"petId\" has incorrect type - string\r",
+							"            \"quantity\" has incorrect type - string\r",
+							"            \"shipDate\" has incorrect type - float (number)\r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 3,\r\n  \"petId\": \"aaa\",\r\n  \"quantity\": \"3\",\r\n  \"shipDate\": 33.33,\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_4_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #4_1: \"quantity\" has incorrect type - negative integer \r",
+							"            \"complete\" has incorrect type - string\r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1,\r\n  \"petId\": 221,\r\n  \"quantity\": -10,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": \"animal\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_4_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #4_2: \"quantity\" has incorrect type - stirng, containing namber \"3\"\r",
+							"            \"complete\" has incorrect type - integer (number)\r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 1,\r\n  \"petId\": 221,\r\n  \"quantity\": \"3\",\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": 43\r\n}\r\n//  Value of \"quantity\" is converted from string that contains number to integer\r\n// Value of \"complete\" is converted from integer to TRUE",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #5: \"quantity\" has incorrect type - stirng \r",
+							"           \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 55,\r\n  \"petId\": \"twenty\",\r\n  \"quantity\": 3,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": 43\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #6 _1: \"quantity\" has incorrect type - stirnt \r",
+							"           shipDate shipDate - float\r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 6,\r\n  \"petId\": \"six\",\r\n  \"quantity\": 3,\r\n  \"shipDate\": 15.2022,\r\n  \"status\": \"approved\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #7: \"id\" has incorrect type - string \r",
+							"           shipDate shipDate - boolean\r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"seven\"\r\n  \"petId\": 77\r\n  \"quantity\": 7,\r\n  \"shipDate\": false\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_8_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #8 _1: \"id\" has incorrect type - string \r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"otto\",\r\n  \"petId\": 88,\r\n  \"quantity\": 8,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"placed\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_8_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #8: \"id\" has incorrect type - float \r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 8.5,\r\n  \"petId\": 88,\r\n  \"quantity\": 8,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_8_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #8: \"id\" has incorrect type - negative integer \r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": -3,\r\n  \"petId\": 88,\r\n  \"quantity\": 8,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": true\r\n}\r\n\r\n/*9223372036854775807 - max value of integer 64 */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_9_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #9 _1: \"id\" has incorrect type - string\r",
+							"            \"petId\" has incorrect type - string\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"nove\",\r\n  \"petId\": \"9\",\r\n  \"quantity\": 8,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": true\r\n}\r\n\r\n/*9223372036854775807 - max value of integer 64 */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_9_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #9 _1: \"id\" has incorrect type - negative integer\r",
+							"            \"petId\" has incorrect type - negative float\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": -9,\r\n  \"petId\": -0.99,\r\n  \"quantity\": 8,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": true\r\n}\r\n\r\n/*9223372036854775807 - max value of integer 64 */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_10_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #9 _1: \"id\" has incorrect type - string\r",
+							"            \"quantity\" has incorrect type - string\r",
+							"            \"complete\" has incorrect type - string\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"ten\",\r\n  \"petId\": 101,\r\n  \"quantity\": \"empty\",\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": \"true\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_10_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #9 _1: \"id\" has incorrect type - negative integer\r",
+							"            \"quantity\" has incorrect type - negative float\r",
+							"            \"complete\" has incorrect type - integer\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": -10,\r\n  \"petId\": 101,\r\n  \"quantity\": -9.1,\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": 1\r\n}\r\n\r\n/*value of keys \"id\" is converted to max integer; value \"quantity\" is truncated value after comma, but still negative\r\nvalue of key \"complete\" that is integer is coverted in true  */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_10_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #9 _1: \"id\" has incorrect type - string with \"integer\"\r",
+							"            \"quantity\" has incorrect type - string with \"-integer\"\r",
+							"            \"complete\" has incorrect type - integer\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"1\",\r\n  \"petId\": 101,\r\n  \"quantity\": \"-10\",\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": -10\r\n}\r\n\r\n/*values of keys \"id\" and \"quantity\" that is string with \"integer\" are converted to number;\r\nvalue of key \"complete\" that is integer is coverted in true  */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_11_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #9 _1: \"id\" has incorrect type - string\r",
+							"            \"quantity\" has incorrect type - string \r",
+							"            \"complete\" has incorrect type - integer\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"eleven\",\r\n  \"petId\": 101,\r\n  \"quantity\": \"one\",\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": -10\r\n}\r\n\r\n/*values of keys \"id\" and \"quantity\" that is string with \"integer\" are converted to number;\r\nvalue of key \"complete\" that is integer is coverted in true  */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_11_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #9 _1: \"id\" has incorrect type - string with \"integer\"\r",
+							"            \"quantity\" has incorrect type - string with \"-integer\"\r",
+							"            \"complete\" has incorrect type - integer\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"1\",\r\n  \"petId\": 101,\r\n  \"quantity\": \"-10\",\r\n  \"shipDate\": \"2022-02-14T18:39:51.094Z\",\r\n  \"status\": \"delivered\",\r\n  \"complete\": -10\r\n}\r\n\r\n/*values of keys \"id\" and \"quantity\" that is string with \"integer\" are converted to number;\r\nvalue of key \"complete\" that is integer is coverted in true  */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_12_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*CCheck #12 types of values\r",
+							"All values are incorrect\r",
+							" */\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData).to.be.an(\"object\");\r",
+							"  pm.expect(jsonData.id).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.petId).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.quantity).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.shipDate).to.be.a(\"string\");\r",
+							"  pm.expect(jsonData.status).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.complete).to.be.true;\r",
+							" \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"one\",\r\n  \"petId\": \"two\",\r\n  \"quantity\": \"tree\",\r\n  \"shipDate\": \"today\",\r\n  \"status\": \"non\",\r\n  \"complete\": \"true\"\r\n}\r\n\r\n/*values of keys \"id\" and \"quantity\" that is string with \"integer\" are converted to number;\r\nvalue of key \"complete\" that is integer is coverted in true  */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_12_2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #12 _2: \"id\" has incorrect type - float\r",
+							"            \"petId\" has incorrect type - float\r",
+							"            \"quantity\" has incorrect type - float\r",
+							"            \"shipDate\": \"14/02/2022\",\r",
+							"            \"status\" = 0,\r",
+							"            \"complete\" has incorrect type - negative integer\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 12.12,\r\n  \"petId\": 12.2,\r\n  \"quantity\": 2.2,\r\n  \"shipDate\": \"14/02/2022\",\r\n  \"status\": 0,\r\n  \"complete\": -10\r\n}\r\n\r\n/*values of keys \"id\" and \"quantity\" that is string with \"integer\" are converted to number;\r\nvalue of key \"complete\" that is integer is coverted in true  */",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check_value_type_12_3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"/*Check #12 _3: All values are null\r",
+							"        \r",
+							" */\r",
+							"pm.test(\"Status code is 400 or 500. Data type is incorrect\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([400,500]); // проверка статуса 400, 500 \r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData).to.be.an(\"object\");\r",
+							"  pm.expect(jsonData.id).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.petId).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.quantity).to.be.a(\"number\");\r",
+							"  pm.expect(jsonData.shipDate).to.be.a(\"string\");\r",
+							"  pm.expect(jsonData.status).to.be.an(\"string\");\r",
+							"  pm.expect(jsonData.complete).to.be.true;\r",
+							" \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": null,\r\n  \"petId\": null,\r\n  \"quantity\": null,\r\n  \"shipDate\": null,\r\n  \"status\": null,\r\n  \"complete\": null\r\n}\r\n\r\n/*values of keys \"id\" and \"quantity\" that is string with \"integer\" are converted to number;\r\n\"shipDate\" is missed at all\r\nvalue of key \"complete\" that is integer is coverted in true  \r\nWe have ricieved wrong body*/",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://petstore.swagger.io/v2/store/order",
+					"protocol": "https",
+					"host": [
+						"petstore",
+						"swagger",
+						"io"
+					],
+					"path": [
+						"v2",
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Тестируем статус ответа 200 и формат, используем корректные",
+					"pm.test(\"Status code is 200. Response is json\", function () {",
+					"    pm.response.to.have.status(200); // проверка статуса 200",
+					"    pm.response.to.be.json; // проверка формата",
+					"    console.log('Test passed');",
+					"});"
+				]
+			}
+		}
+	]
+}
